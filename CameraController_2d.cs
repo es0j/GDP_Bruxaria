@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController_2d: MonoBehaviour
 {
     // Start is called before the first frame update
     Transform target;
@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = PlayerManager.instance.mainPlayer.transform;
+        target = PlayerManager.instance.player.transform;
         transform.position = target.position + offset;
         transform.LookAt(target);
 
