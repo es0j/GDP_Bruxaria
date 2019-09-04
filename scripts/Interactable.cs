@@ -8,20 +8,55 @@ public class Interactable : MonoBehaviour
     private bool hasInteracted;
     private Transform player;
     public Transform interactionTransform;
+    bool hasRange = false;
 
+    void Start()
+    {
+        player = PlayerManager.instance.player.transform;
+        if (interactionTransform==null)
+        {
+            interactionTransform = transform;
+        }
+    }
 
     void Update()
     {
+        
+        float distance = Vector3.Distance(player.position, interactionTransform.position);
+        //Debug.Log(distance.ToString());
+        if (distance < radius)
+        {
+            hasRange = true;
+            
+        }
+        else { hasRange = false; }
+
+
         if (isFocus && !hasInteracted)
         {
-            float distance = Vector3.Distance(player.position, interactionTransform.position);
-            if (distance<radius)
+            if (hasRange)
             {
                 Interact();
                 hasInteracted = true;
-            }
-            
+            }   
         }
+        if (hasRange)
+        {
+            HasRange();
+        }
+        else
+        {
+            HasNOTRange();
+        }
+        
+    }
+    public virtual void HasRange()
+    {
+        //Debug.Log("Has Range");
+    }
+    public virtual void HasNOTRange()
+    {
+        Debug.Log("Has Range");
     }
 
     //just for the sake of objects heritages

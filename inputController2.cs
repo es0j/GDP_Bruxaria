@@ -7,17 +7,20 @@ public class inputController2 : MonoBehaviour
 
     public float speed;
 
+    public Animator anim;
+    public float angleRotate = -90;
+    public Transform pivot;
+    public int index;
+    public float maxSpeed=10;
+    public float jumpSpeed = 20;
+
     NavMeshAgent agent;
     Rigidbody rb;
     Vector3 movement;
     Vector3 vector;
     float moveHorizontal;
     float moveVertical;
-    public float angleRotate = -90;
-    public Transform pivot;
-    public int index;
-    public float maxSpeed=10;
-    public float jumpSpeed = 20;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -25,7 +28,7 @@ public class inputController2 : MonoBehaviour
         Physics.gravity = new Vector3(0, -100.0F, 0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (index==0)
         {
@@ -43,6 +46,7 @@ public class inputController2 : MonoBehaviour
             if(rb.velocity.magnitude <maxSpeed)
             {
                 rb.AddForce(vector * speed);
+                anim.SetFloat("Speed", rb.velocity.magnitude / maxSpeed);
             }
             
 
@@ -52,11 +56,15 @@ public class inputController2 : MonoBehaviour
                
             }
             bool jump = Input.GetKeyDown(KeyCode.Space);
+            anim.ResetTrigger("JumpT");
             if (jump)
             {
                 Debug.Log("pressed");
                 rb.AddForce(0, jumpSpeed, 0);
+                //anim.SetTrigger("JumpT");
+                anim.SetBool("Jump", true);
             }
+            
 
         }
         else
