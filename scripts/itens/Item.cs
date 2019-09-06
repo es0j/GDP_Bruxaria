@@ -11,6 +11,8 @@ public class Item : ScriptableObject
     public Sprite icon = null;
     public int selPrice=100;
     public int buyPrice=100;
+    public int atackpower = 0;
+    public int defensePower = 0;
     public bool isDefaultItem = false;
     public virtual void Use()
     {

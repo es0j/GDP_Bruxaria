@@ -56,7 +56,7 @@ public class Interactable : MonoBehaviour
     }
     public virtual void HasNOTRange()
     {
-        Debug.Log("Has Range");
+        //Debug.Log("Has Range");
     }
 
     //just for the sake of objects heritages

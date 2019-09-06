@@ -16,4 +16,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c56fac46c5caf504cb01c9fd3a722446, type: 3}
   selPrice: 100
   buyPrice: 100
+  atackpower: 10
+  defensePower: 2
   isDefaultItem: 0

@@ -10,13 +10,14 @@ public class playerController : MonoBehaviour
 
     public Interactable focus;
     bool interactable = false;
+    bool isFighting = false;
 
  
     // Update is called once per frame
     void Update()
     {
         //if we are not clicking over an UI, we continue
-        if (Input.GetKey(KeyCode.R ))
+        if (Input.GetKey(KeyCode.R ) && !isFighting)
         {
             if (interactable)
             {
@@ -25,35 +26,51 @@ public class playerController : MonoBehaviour
             }
         }        
     }
-/*
-    void SetFocus(Interactable newFocus)
+
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(" focado com com  " + newFocus.name);
-        if (focus!=newFocus)
+        isFighting = PlayerManager.instance.isFighting;
+        if (collision.collider.tag=="enemie" && !isFighting)
+        {
+            PlayerManager.instance.EnterFight(collision.collider.GetComponent<CharacterStats>());
+            Debug.Log(collision.collider.tag);
+            //TriggerFight();
+        }
+        
+        
+    }
+
+    
+
+    /*
+        void SetFocus(Interactable newFocus)
+        {
+            Debug.Log(" focado com com  " + newFocus.name);
+            if (focus!=newFocus)
+            {
+                if (focus!=null)
+                {
+                    focus.OnFocused(transform);
+                    //focus.OnDefocused();
+                }
+
+                focus = newFocus;
+
+            }
+
+            //RemoveFocus();
+            //interactable = false;
+        }
+        void RemoveFocus()
         {
             if (focus!=null)
             {
-                focus.OnFocused(transform);
                 //focus.OnDefocused();
             }
-            
-            focus = newFocus;
-            
+            focus = null;
+
         }
-        
-        //RemoveFocus();
-        //interactable = false;
-    }
-    void RemoveFocus()
-    {
-        if (focus!=null)
-        {
-            //focus.OnDefocused();
-        }
-        focus = null;
-        
-    }
-    */
+        */
     public void ShowPopUp(Interactable objeto,Item item)
     {
         //Debug.Log(" interagivel com  "+ item.name);

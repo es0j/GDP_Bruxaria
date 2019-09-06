@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour
     public float lookRadius = 10;
     public Transform target;
     NavMeshAgent agent;
-    CharacterCombat combat;
+    Animator anim;
+    //CharacterCombat combat;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,8 @@ public class EnemyController : MonoBehaviour
         //}
         
         agent = GetComponent<NavMeshAgent>();
-        combat = GetComponent<CharacterCombat>();
+        anim = GetComponent<Animator>();
+        //combat = GetComponent<CharacterCombat>();
     }
 
     IEnumerator waitAndFollow()
@@ -39,7 +41,7 @@ public class EnemyController : MonoBehaviour
                 if(targetStats!=null)
                 {
                     
-                    combat.Attack(targetStats);
+                    //combat.Attack(targetStats);
                 }
                 
                 
@@ -53,9 +55,21 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //FaceTarget();
-        //waitAndFollow();
-        StartCoroutine(waitAndFollow());
+        if (!PlayerManager.instance.isFighting)
+        {
+            //FaceTarget();
+            //waitAndFollow();
+            agent.isStopped = false;
+            StartCoroutine(waitAndFollow());
+            anim.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+        }
+        else
+        {
+            agent.isStopped=true;
+
+        }
+
+
 
     }
 
